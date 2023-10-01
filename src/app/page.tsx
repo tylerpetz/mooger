@@ -1,43 +1,42 @@
 'use client';
 
+import Link from 'next/link'
 import React, { useEffect, useMemo, useState } from 'react';
-
-
-
-/**
- * SVGR Support
- * Caveat: No React Props Type.
- *
- * You can override the next-env if the type is important to you
- * @see https://stackoverflow.com/questions/68103844/how-to-override-next-js-svg-module-declaration
- */
-
-// !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
-// Before you begin editing, follow all comments with `STARTERCONF`,
-// to customize the default configuration.
 
 export interface Film {
   title: string
   year: string
   thumbnail: string
+  slug: string
+  video: string
+  poster: string
 }
 
 export default function HomePage() {
   const films: Film[] = useMemo(() => ([
     {
       title: 'Horsing Around',
+      slug: 'horsing-around',
       year: '2021',
       thumbnail: 'https://creepyparty.com/cdn/shop/products/p20-tuya_560x560.jpg',
+      video: '',
+      poster: 'https://creepyparty.com/cdn/shop/products/p20-tuya_560x560.jpg'
     },
     {
       title: 'Gangsters Paradise',
+      slug: 'gangsters-paradise',
       year: '2022',
       thumbnail: 'https://media.gettyimages.com/id/125145388/photo/1940s-black-gangster.jpg?s=612x612&w=gi&k=20&c=uevS8wbmxrCxuY16TpKlSs8EoLJW5ooXGMQzW0fNZCA=',
+      video: '',
+      poster: 'https://media.gettyimages.com/id/125145388/photo/1940s-black-gangster.jpg?s=612x612&w=gi&k=20&c=uevS8wbmxrCxuY16TpKlSs8EoLJW5ooXGMQzW0fNZCA=',
     },
     {
       title: 'Soulmatoes',
+      slug: 'soulmatoes',
       year: '2023',
       thumbnail: 'https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg',
+      video: '',
+      poster: 'https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg',
     }
   ]), [])
 
@@ -62,12 +61,12 @@ export default function HomePage() {
 
   return (
     <main>
-      <section className='relative flex min-h-screen flex-col items-start justify-end p-12 text-center space-y-8 bg-cover' style={{
+      <section className='relative flex min-h-screen flex-col items-start justify-end p-12 text-center space-y-8 bg-cover bg-center' style={{
         backgroundImage: `url(${selectedFilm.thumbnail})`
       }}>
         {films.map((film) => (
           <h1 className="text-white text-6xl relative" key={film.title} onMouseOver={() => handleMouseOver(film)} onFocus={() => handleMouseOver(film)}>
-            {film.title}<span className="text-sm relative -top-6 pl-4">{film.year}</span>
+            <Link href={`/${film.slug}`}>{film.title}<span className="text-sm relative -top-6 pl-4">{film.year}</span></Link>
           </h1>
         ))}
       </section>
